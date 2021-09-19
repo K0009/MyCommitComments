@@ -9,11 +9,12 @@ TODO : Guide users throgh getting your code up and running on their own system.I
 4.API references
 
 # Prerequities
-Visual Studio
-Dot Net Framework
-Jquery
-Bootstarp
-GHE API (https://docs.github.com/en/enterprise-server@3.1/rest/reference/repos)
+Visual Studio,
+Dot Net Framework,
+Jquery,
+Jquery DataTable,
+Bootstarp,
+GHE API (https://docs.github.com/en/enterprise-server@3.1/rest/reference/repos);
 
 # Build and Test
 TODO : Describe and show how to build your code and run the tests.
