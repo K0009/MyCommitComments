@@ -3,7 +3,7 @@ TODO : Give a short introduction of your project. Let this section explain the o
 Application to read commit comment from GHE API (https://docs.github.com/en/enterprise-server@3.1/rest/reference/repos)<br/>
 
 # Getting Started
-TODO : Guide users throgh getting your code up and running on their own system.In this section you can talk about:
+TODO : Guide users throgh getting your code up and running on their own system.In this section you can talk about:<br/>
 1.Installation process<br/>
 2.Software dependencies<br/>
 3.Latest releases<br/>
@@ -15,6 +15,8 @@ Dot Net Framework v4.7,<br/>
 Jquery v3.5.1,<br/>
 Jquery DataTable v1.11.2,<br/>
 Bootstarp v3.3.7,<br/>
+buttons.dataTables.min.css<br/>
+jquery.dataTables.css<br/>
 GHE API (https://docs.github.com/en/enterprise-server@3.1/rest/reference/repos)<br/>
 
 # Installation 
@@ -27,11 +29,16 @@ const string gitRepoURL='URL'<br/>
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 # Build and Test
-TODO : Describe and show how to build your code and run the tests.<br/>
+TODO : Describe and show how to build your code and run the tests <br/>
+Download the code <br/>
+Generate the Personal token my login into Github<br/>
+Changes the Key in APIEndPoints.cs <br/>
+Build the code and run.<br/>
 
 # Contribute
 TODO : Explain how other users and developers can contribute to make your code better.<br/>
 
-If you want to learn more about creating good readme files then refer the following [guidelines] (https://www.visualstudio.com/en-us/docs/git/create-a-readme).You can also also seek inspiriration from the below readme files:
+If you want to learn more about creating good readme files then refer the following [guidelines] (https://www.visualstudio.com/en-us/docs/git/create-a-readme).<br/>
+You can also also seek inspiriration from the below readme files:<br/>
 [ASP.Net MVC] <br/>
 [Visual Studio]<br/>
