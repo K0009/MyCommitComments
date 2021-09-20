@@ -9,7 +9,7 @@ namespace CommitCommentApp.Models
     {
         public string commit_id { get; set; }
         public string body { get; set; }
-        public string wordcount { get; set; }
+        public int wordcount { get; set; }
 
     }
 }

@@ -22,32 +22,50 @@ namespace CommitCommentApp.Controllers
             return View();
         }
 
-        public List<Commit> GetCommits()
+        public  List<Commit> GetCommits()
         {
             WebClient webClient = new WebClient();
             webClient.Headers.Add("Authentication-Token", APIEndPoints.apiKey);
-            webClient.Headers.Add("user-agent", "User1");
-            string content = webClient.DownloadString(APIEndPoints.gitRepoURL);
-            List<Commit> _listCommits = JsonConvert.DeserializeObject<List<Commit>>(content);
+            webClient.Headers.Add("user-agent", "user1");
+            List<Commit> _listCommits = new List<Commit>();
+            try
+            {
+                string content = webClient.DownloadString(APIEndPoints.gitRepoURL);
+                _listCommits = JsonConvert.DeserializeObject<List<Commit>>(content);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
             return _listCommits;
         }
 
         public List<CommitComment> GetCommitComments(List<Commit> listCommits)
         {
             List<CommitComment> _list = new List<CommitComment>();
-
-            for (int i = 0; i < listCommits.Count; i++)
+            WebClient webClient = new WebClient();
+            try
             {
-                WebClient webClient = new WebClient();
-                webClient.Headers.Add("Authentication-Token", APIEndPoints.apiKey);
-                webClient.Headers.Add("user-agent", listCommits[i].sha);
-                string URL = "https://api.github.com/repos/octocat/Hello-World/commits/";
-                string EndPoints = listCommits[i].sha + "/comments";
-                string URLEndPoints = URL + EndPoints;
-                string content = webClient.DownloadString(URLEndPoints);
-                var listCommitComments = JsonConvert.DeserializeObject<List<CommitComment>>(content);
-                _list.AddRange(listCommitComments);
+                if(listCommits.Count>0)
+                {
+                    for (int i = 0; i < listCommits.Count; i++)
+                    {
+                        webClient.Headers.Add("Authentication-Token", APIEndPoints.apiKey);
+                        webClient.Headers.Add("user-agent", listCommits[i].sha);
+                        string EndPoints = listCommits[i].sha + "/comments";
+                        string URLEndPoints = APIEndPoints.gitRepoURL + "/" + EndPoints;
+                        string content = webClient.DownloadString(URLEndPoints);
+                        var listCommitComments = JsonConvert.DeserializeObject<List<CommitComment>>(content);
+                        _list.AddRange(listCommitComments);
+                    }
+                }
             }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
             return _list;
 
         }
@@ -57,13 +75,13 @@ namespace CommitCommentApp.Controllers
         {
             List<Commit> _listSHA = GetCommits();
             List<CommitComment> _listCommits = GetCommitComments(_listSHA);
-            var x = from listCommits in _listCommits
-                    select new
-                    {
-                        commit_id = listCommits.commit_id,
-                        body = listCommits.body,
-                        wordcount = listCommits.body.Length
-                    };
+            var x = (from listCommits in _listCommits
+                     select new CommitComment
+                     {
+                         commit_id = listCommits.commit_id,
+                         body = listCommits.body.Trim(),
+                         wordcount = listCommits.body.Trim().Length
+                     }).OrderBy(a => a.wordcount).ToList();
             return Json(x, JsonRequestBehavior.AllowGet);
         }
     }
